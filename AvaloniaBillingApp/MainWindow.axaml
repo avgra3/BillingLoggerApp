@@ -2,8 +2,90 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
+        Width="600" Height="450"
         x:Class="AvaloniaBillingApp.MainWindow"
-        Title="AvaloniaBillingApp">
-    Welcome to Avalonia!
+        Title="Billing App">
+    
+    <StackPanel>
+        <Border Margin="5"
+            CornerRadius="10"
+            Background="LightBlue">
+            <TextBlock Margin="5"
+                       FontSize="24"
+                       HorizontalAlignment="Center"
+                       Text="Avalonia Billing App">
+            </TextBlock>
+        </Border>
+        <StackPanel>
+            <Label VerticalAlignment="Center"
+                   FontSize="20"
+                   FontStyle="Italic">
+                Entering a New Bill
+            </Label>
+            <Grid ShowGridLines="False"
+                  Margin="15"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  ColumnDefinitions="Auto, Auto"
+                  RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                <Label Grid.Row="0" Grid.Column="0">
+                    Carrier
+                </Label>
+                <Carousel Grid.Row="0" Grid.Column="1">
+                    CALL API HERE
+                </Carousel>
+                
+                <Label Grid.Row="1" Grid.Column="0">
+                    Billed Date
+                </Label>
+                <DatePicker Grid.Row="1" Grid.Column="1" Name="BilledDate"/>
+                
+                <Label Grid.Row="2" Grid.Column="0">
+                    Due Date
+                </Label>
+                <DatePicker Grid.Row="2" Grid.Column="1"/>
+                
+                <Label Grid.Row="3" Grid.Column="0">
+                    Product
+                </Label>
+                <Carousel Grid.Row="3" Grid.Column="1">
+                    CALL API HERE
+                </Carousel>
+                
+                <Label Grid.Row="4" Grid.Column="0">
+                    Base Charge
+                </Label>
+                <TextBox Grid.Row="4" Grid.Column="1" Name="BaseCharge">$0.00</TextBox>
+                
+                <Label Grid.Row="5" Grid.Column="0">
+                    Ancillary Fees
+                </Label>
+                <TextBox Grid.Row="5" Grid.Column="1" Name="AncFees">$0.00</TextBox>
+                
+                <Label Grid.Row="6" Grid.Column="0">
+                    Taxes
+                </Label>
+                <TextBox Grid.Row="6" Grid.Column="1" Name="Taxes">$0.00</TextBox>
+                
+                <Label Grid.Row="7" Grid.Column="0">
+                    Credit
+                </Label>
+                <TextBox Grid.Row="7" Grid.Column="1" Name="Credit">$0.00</TextBox>
+                
+                <Label Grid.Row="8" Grid.Column="0">Paid Date</Label>
+                <DatePicker Grid.Row="8" Grid.Column="1" Name="PaidDate"/>
+                
+                
+                <Button Grid.Row="9" Grid.Column="0" Click="ButtonSumCharge">Total</Button>
+                <TextBox Grid.Row="9" Grid.Column="1" Name="Total" IsReadOnly="True">$0.00</TextBox>
+                
+                <Button Grid.Row="10" Grid.Column="0" Click="ButtonUpdatePaidStatus">Paid Check</Button>
+                <!-- Need to update this field based on the paid date being a valid date and greater than  or equal to 
+                the billed date, for now uses a button -->
+                <TextBox Grid.Row="10" Grid.Column="1" Name="PaidBool" IsReadOnly="True">FALSE</TextBox>
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+    
 </Window>
