@@ -32,26 +32,26 @@
                 <Label Grid.Row="0" Grid.Column="0">
                     Carrier
                 </Label>
-                <Carousel Grid.Row="0" Grid.Column="1">
+                <ComboBox Grid.Row="0" Grid.Column="1">
                     CALL API HERE
-                </Carousel>
+                </ComboBox>
                 
                 <Label Grid.Row="1" Grid.Column="0">
                     Billed Date
                 </Label>
-                <DatePicker Grid.Row="1" Grid.Column="1" Name="BilledDate"/>
+                <CalendarDatePicker Grid.Row="1" Grid.Column="1" Name="BilledDate"/>
                 
                 <Label Grid.Row="2" Grid.Column="0">
                     Due Date
                 </Label>
-                <DatePicker Grid.Row="2" Grid.Column="1"/>
+                <CalendarDatePicker Grid.Row="2" Grid.Column="1"/>
                 
                 <Label Grid.Row="3" Grid.Column="0">
                     Product
                 </Label>
-                <Carousel Grid.Row="3" Grid.Column="1">
+                <ComboBox Grid.Row="3" Grid.Column="1">
                     CALL API HERE
-                </Carousel>
+                </ComboBox>
                 
                 <Label Grid.Row="4" Grid.Column="0">
                     Base Charge
@@ -74,7 +74,7 @@
                 <TextBox Grid.Row="7" Grid.Column="1" Name="Credit">$0.00</TextBox>
                 
                 <Label Grid.Row="8" Grid.Column="0">Paid Date</Label>
-                <DatePicker Grid.Row="8" Grid.Column="1" Name="PaidDate"/>
+                <CalendarDatePicker Grid.Row="8" Grid.Column="1" Name="PaidDate"/>
                 
                 
                 <Button Grid.Row="9" Grid.Column="0" Click="ButtonSumCharge">Total</Button>
