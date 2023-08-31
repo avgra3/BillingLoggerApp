@@ -5,3 +5,4 @@ riderModule.iml
 /_ReSharper.Caches/
 *.idea*
 AvaloniaBillingApp.sln.DotSettings.user
+.vscode
