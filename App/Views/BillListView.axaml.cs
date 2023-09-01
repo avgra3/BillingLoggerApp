@@ -1,15 +1,21 @@
 using System;
-// using System.Diagnostics;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
 
-namespace AvaloniaBillingApp;
+namespace BillingApp.Views;
 
-public partial class MainWindow : Window
+public partial class BillListView : UserControl
 {
-    public MainWindow()
+    public BillListView()
     {
         InitializeComponent();
+    }
+
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
     }
     
     // Summation Button
