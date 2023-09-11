@@ -1,7 +1,6 @@
 name: "Deploy Avalonia App"
 on:
   push:
-    branches: [ main ]
     tags:
       - "Billing/v*"
 
@@ -18,7 +17,7 @@ jobs:
         - uses: actions/setup-dotnet@v1
           with:
             dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-        - run: set DOTNET_CLI_TELEMETRY_OPTOUT=${{ env.TURN_OFF_TELEMETRY }}
+#        - run: set DOTNET_CLI_TELEMETRY_OPTOUT=${{ env.TURN_OFF_TELEMETRY }}
         - name: Install dependencies
           run: dotnet restore ${{ env.PROJECT_PATH }}
         
@@ -40,7 +39,7 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-      - run: set DOTNET_CLI_TELEMETRY_OPTOUT=${{ env.TURN_OFF_TELEMETRY }}
+#      - run: set DOTNET_CLI_TELEMETRY_OPTOUT=${{ env.TURN_OFF_TELEMETRY }}
       
       - name: Install dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
