@@ -83,6 +83,7 @@
                 the billed date, for now uses a button -->
                 <TextBox Grid.Row="10" Grid.Column="1" Name="PaidBool" IsReadOnly="True">FALSE</TextBox>
             </Grid>
+            <Button HorizontalAlignment="Center" Margin="2" Name="SubmitBill">Submit</Button>
         </StackPanel>
     </StackPanel>
 </UserControl>

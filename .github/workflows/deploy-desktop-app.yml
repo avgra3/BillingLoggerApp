@@ -1,0 +1,57 @@
+name: "Deploy Avalonia App"
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - "Billing/v*"
+
+env:
+  PROJECT_PATH: App/App.csproj
+  DOTNET_CORE_VERSION: 6.0.x
+  TURN_OFF_TELEMETRY: 1
+
+jobs:
+  deploy-Windows:
+      runs-on: windows-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+        - run: set DOTNET_CLI_TELEMETRY_OPTOUT=${{ env.TURN_OFF_TELEMETRY }}
+        - name: Install dependencies
+          run: dotnet restore ${{ env.PROJECT_PATH }}
+        
+        - name: Build Windows
+          run: |
+            dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+            dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
+        - name: Upload Windows asses to release
+          uses: csexton/release-asset-action@v2
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            pattern: App/bin/Release/net6.0/win-x64/publish/*.exe
+            release-url: ${{ steps.create_release.outputs.upload_url }}
+
+  deploy-Linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+      - run: set DOTNET_CLI_TELEMETRY_OPTOUT=${{ env.TURN_OFF_TELEMETRY }}
+      
+      - name: Install dependencies
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      
+      - name: Build Linux
+        run: |
+          dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+          dotnet publish ${{ env.PROJECT_PATH }} -c Release -o ../build-app --self-contained -r linux-x64 --self-contained=true -p:PublishSingleFile=true -p:UseAppHost=true --no-build
+      - name: Upload Linux Assets to Release with a wildcard
+        uses: csexton/release-asset-action@v2
+        with:
+          pattern: "App/bin/Release/net6.0/linux-x64/publish/*"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          release-url: ${{ steps.create_release.outputs.upload_url }}
