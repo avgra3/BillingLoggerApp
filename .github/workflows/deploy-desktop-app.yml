@@ -51,10 +51,10 @@ jobs:
       - name: Build Linux
         run: |
           dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
-          dotnet publish ${{ env.PROJECT_PATH }} -c Release -o ../build-app --self-contained -r linux-x64 -p:UseAppHost=true --no-build
+          dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r linux-x64 -p:UseAppHost=true --no-build
       - name: Upload Linux Assets to Release with a wildcard
         uses: csexton/release-asset-action@v2
         with:
-          pattern:  App/bin/Release/net6.0/linux-x64/publish/*
+          pattern:  App/bin/Release/net6.0/linux-x64/
           github-token: ${{ secrets.GITHUB_TOKEN }}
           release-url: ${{ steps.create_release.outputs.upload_url }}
