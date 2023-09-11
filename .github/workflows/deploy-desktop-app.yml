@@ -48,7 +48,7 @@ jobs:
       - name: Build Linux
         run: |
           dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
-          dotnet publish ${{ env.PROJECT_PATH }} -c Release -o ../build-app --self-contained -r linux-x64 --self-contained=true -p:PublishSingleFile=true -p:UseAppHost=true --no-build
+          dotnet publish ${{ env.PROJECT_PATH }} -c Release -o ../build-app --self-contained -r linux-x64 -p:PublishSingleFile=true -p:UseAppHost=true --no-build
       - name: Upload Linux Assets to Release with a wildcard
         uses: csexton/release-asset-action@v2
         with:
