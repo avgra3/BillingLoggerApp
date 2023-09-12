@@ -3,57 +3,39 @@ on:
   push:
     tags:
       - "Billing/v*"
-
-env:
-  PROJECT_PATH: App/App.csproj
-  DOTNET_CORE_VERSION: 6.0.x
+    paths-ignore:
+      - '*.md'
 
 jobs:
-  deploy-Windows:
-      runs-on: windows-latest
-      env:
-        DOTNET_CLI_TELEMETRY_OPTOUT: true
-      steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-dotnet@v3
-          with:
-            dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-
-        - name: Install dependencies
-          run: dotnet restore ${{ env.PROJECT_PATH }}
-        
-        - name: Build Windows
-          run: |
-            dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
-            dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
-        - name: Upload Windows asses to release
-          uses: csexton/release-asset-action@v2
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            pattern: App/bin/Release/net6.0/win-x64/publish/*.exe
-            release-url: ${{ steps.create_release.outputs.upload_url }}
-
   deploy-Linux:
+    name: Linux Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ChannelName:
+          - Release
     env:
-      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_NOLOGO: true
+      BuildConfiguration: Release
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      GitHubReleaseUrl: https://github.com/avgra3/BillingLoggerApp/releases/download/Desktop-
+      PROJECT_PATH: ./App.csproj
+
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+          fetch-depth: 0
+
+      - name: Use .NET Core SDK 6.0.x
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+          include-prerelease: false
       
-      - name: Install dependencies
-        run: dotnet restore ${{ env.PROJECT_PATH }}
-      
-      - name: Build Linux
+      - name: Build Linux App
         run: |
+          dotnet restore ${{ env.PROJECT_PATH }}
           dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
-          dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r linux-x64 -p:UseAppHost=true --no-build
-#      
-#      - name: Upload Linux Assets to Release with a wildcard
-#        uses: csexton/release-asset-action@v2
-#        with:
-#          pattern:  App/bin/Release/net6.0/linux-x64/*
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#          release-url: ${{ steps.create_release.outputs.upload_url }}
+          dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r linux-x64 --no-build
