@@ -1,0 +1,6 @@
+# configuration file for dotnet-releaser
+[msbuild]
+project = "avalonia-billing.sln"
+[github]
+user = "avgra3"
+repo = "BillingLoggerApp"

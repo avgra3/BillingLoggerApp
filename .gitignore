@@ -6,3 +6,4 @@ riderModule.iml
 *.idea*
 AvaloniaBillingApp.sln.DotSettings.user
 .vscode
+artifacts-dotnet-releaser
