@@ -39,4 +39,5 @@ jobs:
         shell: bash
         run: |
           dotnet tool install --global dotnet-releaser
+          export PATH="$PATH:/root/.dotnet/tools"
           dotnet-releaser run --github-token "${{secrets.GITHUB_TOKEN}}" ./dotnet-releaser.toml
