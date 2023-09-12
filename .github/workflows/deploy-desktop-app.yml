@@ -24,7 +24,8 @@ jobs:
       PROJECT_PATH: ./App.csproj
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -38,4 +39,4 @@ jobs:
         shell: bash
         run: |
           dotnet tool install --global dotnet-releaser
-          dotnet-releaser publish --force --github-token "${{secrets.GITHUB_TOKEN}}" dotnet-releaser.toml
+          dotnet-releaser run --github-token "${{secrets.GITHUB_TOKEN}}" ./dotnet-releaser.toml
