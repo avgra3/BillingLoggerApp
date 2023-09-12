@@ -1,5 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <Description>Billing Logger is an all in one GUI to keep track of items.</Description>
+        <Copyright>A. Gradillas</Copyright>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <Authors>A. Gradillas</Authors>
+        <PackageTags>releaser;packaging;deb;rpm;tool</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageReleaseNotes>https://github.com/avgra3/$(AssemblyName)/blob/master/changelog.md</PackageReleaseNotes>
+        <PackageIcon>$(AssemblyName).png</PackageIcon>
+        <PackageProjectUrl>https://github.com/avgra3/$(AssemblyName)</PackageProjectUrl>
+        <PackageLicenseExpression>GPL-3.0</PackageLicenseExpression>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
         <RuntimeIdentifiers>win10-x64;linux-x64</RuntimeIdentifiers> 
@@ -9,6 +20,7 @@
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies> 
         <RootNamespace>BillingApp</RootNamespace>
+        <Version>0.0.1-beta</Version>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,6 +37,7 @@
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.4" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.4" />
-        
     </ItemGroup>
+
+    
 </Project>

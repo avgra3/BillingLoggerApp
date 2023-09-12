@@ -1,6 +1,38 @@
 # configuration file for dotnet-releaser
 [msbuild]
 project = "avalonia-billing.sln"
+configuration = "Release"
+
+[msbuild.properties]
+PublishTrimmed = false
+PublishSingleFile = true
+SelfContained = true
+PublishReadyToRun = true 
+CopyOutputSymbolsToPublishDirectory = false
+SkipCopyingSymbolsToOutputDirectory = true
+
 [github]
 user = "avgra3"
 repo = "BillingLoggerApp"
+version_prefix = "v"
+branches = ["main"]
+
+[coverage]
+enable = true
+source_link = true
+
+[[pack]]
+publish = false
+rid = ["win-x64", "win-arm64"]
+kinds = ["zip"]
+
+[[pack]]
+rid = ["linux-x64", "linux-arm64"]
+kinds = ["deb", "tar"]
+
+[[pack]]
+rid = ["rhel-x64"]
+kinds = ["rpm", "tar"]
+
+[nuget]
+publish = false
