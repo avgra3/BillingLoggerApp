@@ -5,6 +5,7 @@ on:
       - "Billing/v*"
     paths-ignore:
       - '*.md'
+      - 'API'
 
 jobs:
   deploy-Linux:
@@ -35,7 +36,7 @@ jobs:
           dotnet-version: 6.0.x
           include-prerelease: false
       
-      - name: Build, Tests, Cover, Pack and Publish (on push tag)
+      - name: Build, Tests, Cover, Pack and Publish (on push  with tag tag)
         shell: bash
         run: |
           dotnet tool install --global dotnet-releaser
